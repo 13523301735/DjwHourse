@@ -14,6 +14,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!---js--->
 <script src="js/jquery-1.11.1.min.js"></script>
 <script src="js/bootstrap.js"></script>
+<script src="js/angular/angular-1.5.8.min.js"></script>
+<script src="js/angular/myApp.js"></script>
+<script src="js/angular/controller/indexController.js"></script>
 <!---js--->
 <!---fonts-->
 <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
@@ -48,8 +51,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	</script>
 
 </head>
-<body>
-
+<body ng-app="myApp" ng-controller="indexController">
 		<!---header--->
 			<div class="header-section">
 				<div class="container">
@@ -167,47 +169,48 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<div class="place-section">
 			<div class="container">
 				<h2>查找房源</h2>
+				{{queryVo}}
 				<div class="place-grids">
 					<div class="col-md-3 place-grid">
 						<h5>所有地区</h5>
-						<select class="sel">
-						<option value="">All</option>
-						<option value="">New Jersey</option>
-						<option value="">New York</option>
-						<option value="">Australia</option>
-						<option value="">Canada</option>
-						<option value="">India</option>
+						<select class="sel" ng-model="queryVo.onePlace">
+						<option value="all">All</option>
+						<option value="New Jersey">New Jersey</option>
+						<option value="New York">New York</option>
+						<option value="Australia">Australia</option>
+						<option value="Canada">Canada</option>
+						<option value="India">India</option>
 						</select>
 					</div>
 					<div class="col-md-3 place-grid">
 					<h5>所有子地区</h5>
-					<select class="sel">
-						<option value="">All</option>
-						<option value="">New Jersey</option>
-						<option value="">New York</option>
-						<option value="">Australia</option>
-						<option value="">Canada</option>
-						<option value="">India</option>
+					<select class="sel" ng-model="queryVo.twoPlace">
+						<option value="all">All</option>
+						<option value="New Jersey">New Jersey</option>
+						<option value="New York">New York</option>
+						<option value="Australia">Australia</option>
+						<option value="Canada">Canada</option>
+						<option value="India">India</option>
 						</select>
 					</div>
 					<div class="col-md-3 place-grid">
 					<h5>面积</h5>
-					<select class="sel">
-						<option value="">All</option>
-						<option value=""> >130 </option>
-						<option value="">110 ~ 130</option>
-						<option value="">90 ~ 110</option>
-						<option value=""> <90 </option>
+					<select class="sel" ng-model="queryVo.area">
+						<option value="all">All</option>
+						<option value=">130"> >130 </option>
+						<option value="110-130">110 ~ 130</option>
+						<option value="90-110">90 ~ 110</option>
+						<option value="<90"> <90 </option>
 						</select>
 					</div>
 					<div class="col-md-3 place-grid">
 					<h5>朝向</h5>
-					<select class="sel">
-						<option value="">All</option>
-						<option value="">东</option>
-						<option value="">西</option>
-						<option value="">南</option>
-						<option value="">北</option>
+					<select class="sel" ng-model="queryVo.direction">
+						<option value="all">All</option>
+						<option value="west">东</option>
+						<option value="east">西</option>
+						<option value="south">南</option>
+						<option value="north">北</option>
 						</select>
 					</div>
 					<div class="clearfix"></div>
@@ -215,52 +218,53 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<div class="place-grids">
 					<div class="col-md-2 place-grid1">
 						<h5>户型</h5>
-						<select class="sel">
-						<option value="">any</option>
-						<option value="">三室以上</option>
-						<option value="">三室</option>
-						<option value="">两室</option>
-						<option value="">一室</option>
+						<select class="sel" ng-model="queryVo.unit">
+						<option value="all">All</option>
+						<option value=">3">三室以上</option>
+						<option value="3">三室</option>
+						<option value="2">两室</option>
+						<option value="1">一室</option>
 						</select>
 					</div>
 					<div class="col-md-2 place-grid1">
 						<h5>楼层</h5>
-						<select class="sel">
-							<option value="">any</option>
-							<option value="">12层以上</option>
-							<option value="">6~12层</option>
-							<option value="">6层以下</option>
+						<select class="sel" ng-model="queryVo.floor">
+							<option value="all">All</option>
+							<option value=">12">12层以上</option>
+							<option value="6-12">6~12层</option>
+							<option value="<6">6层以下</option>
 						</select>
 					</div>
 					<div class="col-md-2 place-grid1">
 						<h5>最低价</h5>
-						<select class="sel">
-							<option value="">any</option>
-							<option value="">$500</option>
-							<option value="">$1000</option>
-							<option value="">$2000</option>
-							<option value="">$3000</option>
-							<option value="">$4000</option>
-							<option value="">$5000</option>
-							<option value="">$75000</option>
-							<option value="">$10000</option>
+						<select class="sel" ng-model="queryVo.minPrice">
+							<option value="any">any</option>
+							<option value="500">$500</option>
+							<option value="1000">$1000</option>
+							<option value="2000">$2000</option>
+							<option value="3000">$3000</option>
+							<option value="4000">$4000</option>
+							<option value="5000">$5000</option>
+							<option value="75000">$75000</option>
+							<option value="10000">$10000</option>
 						</select>
 					</div>
 					<div class="col-md-2 place-grid1">
 						<h5>最高价</h5>
-						<select class="sel">
-							<option value="">any</option>
-							<option value="">$1000</option>
-							<option value="">$2000</option>
-							<option value="">$3000</option>
-							<option value="">$4000</option>
-							<option value="">$5000</option>
-							<option value="">$75000</option>
-							<option value="">$10000</option>
+						<select class="sel" ng-model="queryVo.maxPrice">
+							<option value="any">any</option>
+							<option value="1000">$1000</option>
+							<option value="2000">$2000</option>
+							<option value="3000">$3000</option>
+							<option value="4000">$4000</option>
+							<option value="5000">$5000</option>
+							<option value="75000">$75000</option>
+							<option value="10000">$10000</option>
 						</select>
 					</div>
 					<div class="col-md-4 search">
-					<form action="forrent.html">
+					<form ng-click="search()">
+					<!--<form action="forrent.html">-->
 						<input type="submit" value="搜 索">
 					</form>
 					</div>

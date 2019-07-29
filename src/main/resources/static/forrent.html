@@ -14,6 +14,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!---js--->
 <script src="js/jquery-1.11.1.min.js"></script>
 <script src="js/bootstrap.js"></script>
+<script src="js/angular/angular-1.5.8.min.js"></script>
+<script src="js/angular/myApp.js"></script>
+<script src="js/angular/controller/forrentController.js"></script>
 <!---js--->
 <!---fonts-->
 <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
@@ -34,7 +37,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			</script>
 			<!-- //FlexSlider-->
 </head>
-<body>
+<body ng-app="myApp" ng-controller="forrentController" ng-init="searchHourse()">
 
 		<!---header--->
 			<div class="header-section">
