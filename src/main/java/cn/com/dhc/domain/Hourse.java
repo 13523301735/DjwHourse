@@ -1,43 +1,63 @@
 package cn.com.dhc.domain;
 
 public class Hourse {
-    private Integer hourseid;
+    private Integer hourseid;//房屋id
 
-    private Integer uid;
+    private Integer uid;//所属用户id
 
-    private String oneplace;
+    private String oneplace;//一级区域
 
-    private String twoplace;
+    private String twoplace;//二级区域
 
-    private Integer area;
+    private Integer area;//面积
 
-    private String direction;
+    private String direction;//朝向
 
-    private Integer roomnum;
+    private Integer roomnum;//卧室数量
 
-    private String fitment;
+    private String fitment;//装修情况
 
-    private String unit;
+    private String unit;//户型
 
-    private String daylighting;
+    private String daylighting;//采光
 
-    private Integer floor;
+    private Integer floor;//所在楼层
 
-    private Integer totalfloor;
+    private Integer totalfloor;//总楼层
 
-    private String picture;
+    private String picture;//图片链接
 
-    private String description;
+    private String description;//描述信息
 
-    private String location;
+    private String location;//具体位置
 
-    private Double price;
+    private Double unitprice;//单位价格
 
-    private Integer status;
+    private Double price;//总价格
 
-    private Integer type;
+    private Integer status;//状态  （0:未上架，1:上架）
 
-    private Integer form;
+    private Integer type;//房屋类型 （0:新房，1:毛坯，2:二手房）
+
+    private Integer form;//房源类型  (0:普通房源，1:精品房源)
+
+    private String village;//小区
+
+    public Double getUnitprice() {
+        return unitprice;
+    }
+
+    public void setUnitprice(Double unitprice) {
+        this.unitprice = unitprice;
+    }
+
+    public String getVillage() {
+        return village;
+    }
+
+    public void setVillage(String village) {
+        this.village = village;
+    }
 
     public Integer getHourseid() {
         return hourseid;
@@ -190,4 +210,5 @@ public class Hourse {
     public void setForm(Integer form) {
         this.form = form;
     }
+
 }

@@ -10,9 +10,7 @@ import cn.com.dhc.util.DJWRuntimeException;
 import cn.com.dhc.util.Result;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-
 import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -27,7 +25,7 @@ public class ForrentServiceImpl implements ForrentService {
     @Override
     public Result<SearchResult> searchHourse(SearchEntity searchEntity) throws DJWRuntimeException {
         if (searchEntity == null){
-            throw new DJWRuntimeException(CodeMsg.SERVER_ERROR);
+            throw new DJWRuntimeException(CodeMsg.BIND_ERROR);
         }
         HourseExample example = new HourseExample();
         HourseExample.Criteria criteria = example.createCriteria();
@@ -71,12 +69,16 @@ public class ForrentServiceImpl implements ForrentService {
             criteria.andPriceGreaterThanOrEqualTo(Double.valueOf(searchEntity.getMinPrice()));
         }
         if (!"any".equals(searchEntity.getMaxPrice())){
-            criteria.andPriceGreaterThanOrEqualTo(Double.valueOf(searchEntity.getMaxPrice()));
+            criteria.andPriceLessThanOrEqualTo(Double.valueOf(searchEntity.getMaxPrice()));
         }
+        //只查询上架的房源
+        criteria.andStatusEqualTo(1);
         SearchResult result = new SearchResult();
+        //分页查询
         List<Hourse> list = hourseMapper.selectByExampleWithLimit(example,searchEntity.getPageNum()*pageSize,pageSize);
         result.setPageNum(searchEntity.getPageNum());
         result.setHourseList(list);
+        //查询总条数
         int count = hourseMapper.countByExample(example);
         result.setTotalCount(count);
         return Result.success(result);

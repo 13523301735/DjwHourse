@@ -1094,6 +1094,66 @@ public class HourseExample {
             return (Criteria) this;
         }
 
+        public Criteria andUnitpriceIsNull() {
+            addCriterion("unitprice is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnitpriceIsNotNull() {
+            addCriterion("unitprice is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnitpriceEqualTo(Double value) {
+            addCriterion("unitprice =", value, "unitprice");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnitpriceNotEqualTo(Double value) {
+            addCriterion("unitprice <>", value, "unitprice");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnitpriceGreaterThan(Double value) {
+            addCriterion("unitprice >", value, "unitprice");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnitpriceGreaterThanOrEqualTo(Double value) {
+            addCriterion("unitprice >=", value, "unitprice");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnitpriceLessThan(Double value) {
+            addCriterion("unitprice <", value, "unitprice");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnitpriceLessThanOrEqualTo(Double value) {
+            addCriterion("unitprice <=", value, "unitprice");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnitpriceIn(List<Double> values) {
+            addCriterion("unitprice in", values, "unitprice");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnitpriceNotIn(List<Double> values) {
+            addCriterion("unitprice not in", values, "unitprice");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnitpriceBetween(Double value1, Double value2) {
+            addCriterion("unitprice between", value1, value2, "unitprice");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnitpriceNotBetween(Double value1, Double value2) {
+            addCriterion("unitprice not between", value1, value2, "unitprice");
+            return (Criteria) this;
+        }
+
         public Criteria andPriceIsNull() {
             addCriterion("price is null");
             return (Criteria) this;
@@ -1331,6 +1391,76 @@ public class HourseExample {
 
         public Criteria andFormNotBetween(Integer value1, Integer value2) {
             addCriterion("form not between", value1, value2, "form");
+            return (Criteria) this;
+        }
+
+        public Criteria andVillageIsNull() {
+            addCriterion("village is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andVillageIsNotNull() {
+            addCriterion("village is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andVillageEqualTo(String value) {
+            addCriterion("village =", value, "village");
+            return (Criteria) this;
+        }
+
+        public Criteria andVillageNotEqualTo(String value) {
+            addCriterion("village <>", value, "village");
+            return (Criteria) this;
+        }
+
+        public Criteria andVillageGreaterThan(String value) {
+            addCriterion("village >", value, "village");
+            return (Criteria) this;
+        }
+
+        public Criteria andVillageGreaterThanOrEqualTo(String value) {
+            addCriterion("village >=", value, "village");
+            return (Criteria) this;
+        }
+
+        public Criteria andVillageLessThan(String value) {
+            addCriterion("village <", value, "village");
+            return (Criteria) this;
+        }
+
+        public Criteria andVillageLessThanOrEqualTo(String value) {
+            addCriterion("village <=", value, "village");
+            return (Criteria) this;
+        }
+
+        public Criteria andVillageLike(String value) {
+            addCriterion("village like", value, "village");
+            return (Criteria) this;
+        }
+
+        public Criteria andVillageNotLike(String value) {
+            addCriterion("village not like", value, "village");
+            return (Criteria) this;
+        }
+
+        public Criteria andVillageIn(List<String> values) {
+            addCriterion("village in", values, "village");
+            return (Criteria) this;
+        }
+
+        public Criteria andVillageNotIn(List<String> values) {
+            addCriterion("village not in", values, "village");
+            return (Criteria) this;
+        }
+
+        public Criteria andVillageBetween(String value1, String value2) {
+            addCriterion("village between", value1, value2, "village");
+            return (Criteria) this;
+        }
+
+        public Criteria andVillageNotBetween(String value1, String value2) {
+            addCriterion("village not between", value1, value2, "village");
             return (Criteria) this;
         }
     }

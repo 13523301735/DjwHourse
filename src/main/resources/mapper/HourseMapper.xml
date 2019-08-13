@@ -17,10 +17,12 @@
     <result column="picture" property="picture" jdbcType="VARCHAR" />
     <result column="description" property="description" jdbcType="VARCHAR" />
     <result column="location" property="location" jdbcType="VARCHAR" />
+    <result column="unitprice" property="unitprice" jdbcType="DOUBLE" />
     <result column="price" property="price" jdbcType="DOUBLE" />
     <result column="status" property="status" jdbcType="INTEGER" />
     <result column="type" property="type" jdbcType="INTEGER" />
     <result column="form" property="form" jdbcType="INTEGER" />
+    <result column="village" property="village" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -52,7 +54,7 @@
     </where>
   </sql>
 
-  <!--yushuai-->
+  <!-- yushuai -->
   <sql id="Example_Where_Clause_Limit" >
     <where >
       <foreach collection="example.oredCriteria" item="criteria" separator="or" >
@@ -82,7 +84,6 @@
       </foreach>
     </where>
   </sql>
-
 
   <sql id="Update_By_Example_Where_Clause" >
     <where >
@@ -114,8 +115,9 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    hourseId, uId, onePlace, twoPlace, area, direction, roomNum, fitment, unit, daylighting, 
-    floor, totalFloor, picture, description, location, price, status, type, form
+    hourseId, uId, onePlace, twoPlace, area, direction, roomNum, fitment, unit, daylighting,
+    floor, totalFloor, picture, description, location, unitprice, price, status, type,
+    form, village
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.com.dhc.domain.HourseExample" >
     select
@@ -150,7 +152,7 @@
   </select>
 
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
+    select
     <include refid="Base_Column_List" />
     from hourse
     where hourseId = #{hourseid,jdbcType=INTEGER}
@@ -166,20 +168,22 @@
     </if>
   </delete>
   <insert id="insert" parameterType="cn.com.dhc.domain.Hourse" >
-    insert into hourse (hourseId, uId, onePlace, 
-      twoPlace, area, direction, 
-      roomNum, fitment, unit, 
-      daylighting, floor, totalFloor, 
-      picture, description, location, 
-      price, status, type, 
-      form)
-    values (#{hourseid,jdbcType=INTEGER}, #{uid,jdbcType=INTEGER}, #{oneplace,jdbcType=VARCHAR}, 
-      #{twoplace,jdbcType=VARCHAR}, #{area,jdbcType=INTEGER}, #{direction,jdbcType=VARCHAR}, 
-      #{roomnum,jdbcType=INTEGER}, #{fitment,jdbcType=VARCHAR}, #{unit,jdbcType=VARCHAR}, 
-      #{daylighting,jdbcType=VARCHAR}, #{floor,jdbcType=INTEGER}, #{totalfloor,jdbcType=INTEGER}, 
-      #{picture,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{location,jdbcType=VARCHAR}, 
-      #{price,jdbcType=DOUBLE}, #{status,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, 
-      #{form,jdbcType=INTEGER})
+    insert into hourse (hourseId, uId, onePlace,
+      twoPlace, area, direction,
+      roomNum, fitment, unit,
+      daylighting, floor, totalFloor,
+      picture, description, location,
+      unitprice, price, status,
+      type, form, village
+      )
+    values (#{hourseid,jdbcType=INTEGER}, #{uid,jdbcType=INTEGER}, #{oneplace,jdbcType=VARCHAR},
+      #{twoplace,jdbcType=VARCHAR}, #{area,jdbcType=INTEGER}, #{direction,jdbcType=VARCHAR},
+      #{roomnum,jdbcType=INTEGER}, #{fitment,jdbcType=VARCHAR}, #{unit,jdbcType=VARCHAR},
+      #{daylighting,jdbcType=VARCHAR}, #{floor,jdbcType=INTEGER}, #{totalfloor,jdbcType=INTEGER},
+      #{picture,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{location,jdbcType=VARCHAR},
+      #{unitprice,jdbcType=DOUBLE}, #{price,jdbcType=DOUBLE}, #{status,jdbcType=INTEGER},
+      #{type,jdbcType=INTEGER}, #{form,jdbcType=INTEGER}, #{village,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="cn.com.dhc.domain.Hourse" >
     insert into hourse
@@ -229,6 +233,9 @@
       <if test="location != null" >
         location,
       </if>
+      <if test="unitprice != null" >
+        unitprice,
+      </if>
       <if test="price != null" >
         price,
       </if>
@@ -240,6 +247,9 @@
       </if>
       <if test="form != null" >
         form,
+      </if>
+      <if test="village != null" >
+        village,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -288,6 +298,9 @@
       <if test="location != null" >
         #{location,jdbcType=VARCHAR},
       </if>
+      <if test="unitprice != null" >
+        #{unitprice,jdbcType=DOUBLE},
+      </if>
       <if test="price != null" >
         #{price,jdbcType=DOUBLE},
       </if>
@@ -299,6 +312,9 @@
       </if>
       <if test="form != null" >
         #{form,jdbcType=INTEGER},
+      </if>
+      <if test="village != null" >
+        #{village,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -356,6 +372,9 @@
       <if test="record.location != null" >
         location = #{record.location,jdbcType=VARCHAR},
       </if>
+      <if test="record.unitprice != null" >
+        unitprice = #{record.unitprice,jdbcType=DOUBLE},
+      </if>
       <if test="record.price != null" >
         price = #{record.price,jdbcType=DOUBLE},
       </if>
@@ -368,6 +387,9 @@
       <if test="record.form != null" >
         form = #{record.form,jdbcType=INTEGER},
       </if>
+      <if test="record.village != null" >
+        village = #{record.village,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -376,24 +398,26 @@
   <update id="updateByExample" parameterType="map" >
     update hourse
     set hourseId = #{record.hourseid,jdbcType=INTEGER},
-      uId = #{record.uid,jdbcType=INTEGER},
-      onePlace = #{record.oneplace,jdbcType=VARCHAR},
-      twoPlace = #{record.twoplace,jdbcType=VARCHAR},
-      area = #{record.area,jdbcType=INTEGER},
-      direction = #{record.direction,jdbcType=VARCHAR},
-      roomNum = #{record.roomnum,jdbcType=INTEGER},
-      fitment = #{record.fitment,jdbcType=VARCHAR},
-      unit = #{record.unit,jdbcType=VARCHAR},
-      daylighting = #{record.daylighting,jdbcType=VARCHAR},
-      floor = #{record.floor,jdbcType=INTEGER},
-      totalFloor = #{record.totalfloor,jdbcType=INTEGER},
-      picture = #{record.picture,jdbcType=VARCHAR},
-      description = #{record.description,jdbcType=VARCHAR},
-      location = #{record.location,jdbcType=VARCHAR},
-      price = #{record.price,jdbcType=DOUBLE},
-      status = #{record.status,jdbcType=INTEGER},
-      type = #{record.type,jdbcType=INTEGER},
-      form = #{record.form,jdbcType=INTEGER}
+    uId = #{record.uid,jdbcType=INTEGER},
+    onePlace = #{record.oneplace,jdbcType=VARCHAR},
+    twoPlace = #{record.twoplace,jdbcType=VARCHAR},
+    area = #{record.area,jdbcType=INTEGER},
+    direction = #{record.direction,jdbcType=VARCHAR},
+    roomNum = #{record.roomnum,jdbcType=INTEGER},
+    fitment = #{record.fitment,jdbcType=VARCHAR},
+    unit = #{record.unit,jdbcType=VARCHAR},
+    daylighting = #{record.daylighting,jdbcType=VARCHAR},
+    floor = #{record.floor,jdbcType=INTEGER},
+    totalFloor = #{record.totalfloor,jdbcType=INTEGER},
+    picture = #{record.picture,jdbcType=VARCHAR},
+    description = #{record.description,jdbcType=VARCHAR},
+    location = #{record.location,jdbcType=VARCHAR},
+    unitprice = #{record.unitprice,jdbcType=DOUBLE},
+    price = #{record.price,jdbcType=DOUBLE},
+    status = #{record.status,jdbcType=INTEGER},
+    type = #{record.type,jdbcType=INTEGER},
+    form = #{record.form,jdbcType=INTEGER},
+    village = #{record.village,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -443,6 +467,9 @@
       <if test="location != null" >
         location = #{location,jdbcType=VARCHAR},
       </if>
+      <if test="unitprice != null" >
+        unitprice = #{unitprice,jdbcType=DOUBLE},
+      </if>
       <if test="price != null" >
         price = #{price,jdbcType=DOUBLE},
       </if>
@@ -454,6 +481,9 @@
       </if>
       <if test="form != null" >
         form = #{form,jdbcType=INTEGER},
+      </if>
+      <if test="village != null" >
+        village = #{village,jdbcType=VARCHAR},
       </if>
     </set>
     where hourseId = #{hourseid,jdbcType=INTEGER}
@@ -474,10 +504,12 @@
       picture = #{picture,jdbcType=VARCHAR},
       description = #{description,jdbcType=VARCHAR},
       location = #{location,jdbcType=VARCHAR},
+      unitprice = #{unitprice,jdbcType=DOUBLE},
       price = #{price,jdbcType=DOUBLE},
       status = #{status,jdbcType=INTEGER},
       type = #{type,jdbcType=INTEGER},
-      form = #{form,jdbcType=INTEGER}
+      form = #{form,jdbcType=INTEGER},
+      village = #{village,jdbcType=VARCHAR}
     where hourseId = #{hourseid,jdbcType=INTEGER}
   </update>
 </mapper>

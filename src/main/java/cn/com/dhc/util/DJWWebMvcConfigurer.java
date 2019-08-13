@@ -1,4 +1,4 @@
-package cn.com.dhc.controller;
+package cn.com.dhc.util;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
@@ -6,7 +6,7 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 @Configuration
-public class DefaultController extends WebMvcConfigurerAdapter {
+public class DJWWebMvcConfigurer extends WebMvcConfigurerAdapter {
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
