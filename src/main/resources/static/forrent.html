@@ -13,9 +13,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 <!---js--->
 <script src="js/jquery-1.11.1.min.js"></script>
-<script src="js/bootstrap.js"></script>
+<script src="js/bootstrap-3.3.4.js"></script>
 <script src="js/angular/angular-1.5.8.min.js"></script>
 <script src="js/angular/myApp.js"></script>
+<script src="js/angular/service/forrentService.js"></script>
 <script src="js/angular/controller/forrentController.js"></script>
 <!---js--->
 <!---fonts-->
@@ -247,13 +248,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									<div role="tabpanel" class="tab-pane fade in active" id="profile" aria-labelledby="profile-tab">
 										<div class="forsale-grids1">
 											<!--每页12个元素-->
-											<div class="col-md-4 forsale-grid1" href="./galleryvariation.html">
+											<div class="col-md-4 forsale-grid1" href="./galleryvariation.html?hourseId={{}}">
 												<img src="images/s7.jpg" class="img-responsive" alt="/">
 												<div class="sale-info">
 													<span >大 经 伟</span>
 												</div>
 												<h5>60 Merrick Way, Miami</h5>
-												<p>Lorem ipsum dolor sit amet, consectetuer  elit,… <a href="./galleryvariation.html">Know More</a></p>
+												<p>Lorem ipsum dolor sit amet, consectetuer  elit,… <a href="./galleryvariation.html?hourseId={{}}">Know More</a></p>
 												<h6>$ 2,500 </h6>
 												<br />
 												<br />
@@ -389,65 +390,65 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<div class="properties-top">
 							<h4>查找房源</h4>
 							<div class="yourplace">
-								<h5>all location</h5>
-								<select class="sel2">
-									<option value="">All Locations</option>
-									<option value="">New Jersey</option>
-									<option value="">New York</option>
-									<option value="">Australia</option>
-									<option value="">Canada</option>
-									<option value="">India</option>
+								<h5>所有地区</h5>
+								<select class="sel2" ng-model="queryVo.onePlace">
+									<option value="all">All</option>
+									<option value="New Jersey">New Jersey</option>
+									<option value="New York">New York</option>
+									<option value="Australia">Australia</option>
+									<option value="Canada">Canada</option>
+									<option value="India">India</option>
 								</select>
 							</div>
 							<div class="yourplace">
-								<h5>all sub location</h5>
-								<select class="sel2">
-									<option value="">All Locations</option>
-									<option value="">New Jersey</option>
-									<option value="">New York</option>
-									<option value="">Australia</option>
-									<option value="">Canada</option>
-									<option value="">India</option>
+								<h5>所有子地区</h5>
+								<select class="sel2" ng-model="queryVo.twoPlace">
+									<option value="all">All</option>
+									<option value="New Jersey">New Jersey</option>
+									<option value="New York">New York</option>
+									<option value="Australia">Australia</option>
+									<option value="Canada">Canada</option>
+									<option value="India">India</option>
 								</select>
 							</div>
 							<div class="yourplace">
 								<h5>面积</h5>
-								<select class="sel2">
-									<option value="">All</option>
-									<option value=""> >130 </option>
-									<option value="">110 ~ 130</option>
-									<option value="">90 ~ 110</option>
-									<option value=""> <90 </option>
+								<select class="sel2" ng-model="queryVo.area">
+									<option value="all">All</option>
+									<option value=">130"> >130 </option>
+									<option value="110-130">110 ~ 130</option>
+									<option value="90-110">90 ~ 110</option>
+									<option value="<90"> <90 </option>
 								</select>
 							</div>
 							<div class="yourplace">
 								<h5>朝向</h5>
-								<select class="sel2">
-									<option value="">All</option>
-									<option value="">东</option>
-									<option value="">西</option>
-									<option value="">南</option>
-									<option value="">北</option>
+								<select class="sel2" ng-model="queryVo.direction">
+									<option value="all">All</option>
+									<option value="west">东</option>
+									<option value="east">西</option>
+									<option value="south">南</option>
+									<option value="north">北</option>
 								</select>
 							</div>
 							<div class="yourplace-grids">
 								<div class="col-md-6 yourplace-grid">
 									<h5>户型</h5>
-									<select class="sel3">
-										<option value="">any</option>
-										<option value="">三室以上</option>
-										<option value="">三室</option>
-										<option value="">两室</option>
-										<option value="">一室</option>
+									<select class="sel3" ng-model="queryVo.unit">
+										<option value="all">All</option>
+										<option value=">3">三室以上</option>
+										<option value="3">三室</option>
+										<option value="2">两室</option>
+										<option value="1">一室</option>
 									</select>
 								</div>
 								<div class="col-md-6 yourplace-grid">
 									<h5>楼层</h5>
-									<select class="sel3">
-										<option value="">any</option>
-										<option value="">12层以上</option>
-										<option value="">6~12层</option>
-										<option value="">6层以下</option>
+									<select class="sel3" ng-model="queryVo.floor">
+										<option value="all">All</option>
+										<option value=">12">12层以上</option>
+										<option value="6-12">6~12层</option>
+										<option value="<6">6层以下</option>
 									</select>
 								</div>
 								<div class="clearfix"></div>
@@ -455,29 +456,29 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							<div class="yourplace-grids1">
 								<div class="col-md-6 yourplace-grid">
 									<h5>最低价</h5>
-									<select class="sel3">
-										<option value="">any</option>
-										<option value="">$500</option>
-										<option value="">$1000</option>
-										<option value="">$2000</option>
-										<option value="">$3000</option>
-										<option value="">$4000</option>
-										<option value="">$5000</option>
-										<option value="">$75000</option>
-										<option value="">$10000</option>
+									<select class="sel3" ng-model="queryVo.minPrice">
+										<option value="any">any</option>
+										<option value="500">$500</option>
+										<option value="1000">$1000</option>
+										<option value="2000">$2000</option>
+										<option value="3000">$3000</option>
+										<option value="4000">$4000</option>
+										<option value="5000">$5000</option>
+										<option value="75000">$75000</option>
+										<option value="10000">$10000</option>
 									</select>
 								</div>
 								<div class="col-md-6 yourplace-grid">
 									<h5>最高价</h5>
-									<select class="sel3">
-										<option value="">any</option>
-										<option value="">$1000</option>
-										<option value="">$2000</option>
-										<option value="">$3000</option>
-										<option value="">$4000</option>
-										<option value="">$5000</option>
-										<option value="">$75000</option>
-										<option value="">$10000</option>
+									<select class="sel3" ng-model="queryVo.maxPrice">
+										<option value="any">any</option>
+										<option value="1000">$1000</option>
+										<option value="2000">$2000</option>
+										<option value="3000">$3000</option>
+										<option value="4000">$4000</option>
+										<option value="5000">$5000</option>
+										<option value="75000">$75000</option>
+										<option value="10000">$10000</option>
 									</select>
 								</div>
 								<div class="clearfix"></div>
@@ -507,57 +508,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				</div>
 			</div>
 		</div>
-		<!---footer--->
-			<div class="footer-section">
-				<div class="container">
-					<div class="footer-grids">
-						<div class="col-md-3 footer-grid">
-							<h4>About Real Homes</h4>
-							<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
-						</div>
-						<div class="col-md-3 footer-grid">
-							<h4>Recent Posts</h4>
-							<ul>
-								<li><a href="#">Lorem Post With Image Format</a></li>
-								<li><a href="#">Example Video Blog Post</a></li>
-								<li><a href="#">Example Post With Gallery Post </a></li>
-								<li><a href="#">Example Video Blog Post</a></li>
-								<li><a href="#">Lorem Post With Image Format</a></li>
-								<li><a href="#">Example Video Blog Post</a></li>
-							</ul>
-						</div>
-						<div class="col-md-3 footer-grid">
-							<h4>Useful links</h4>
-							<ul>
-								<li><a href="terms.html">Terms of Use</a></li>
-								<li><a href="privacy.html">Privacy Policy</a></li>
-								<li><a href="contact.html">Contact Support </a></li>
-								<li><a href="agents.html"> All Agents</a></li>
-								<li><a href="blog.html">Blog</a></li>
-								<li><a href="faqs.html">FAQs</a></li>
-							</ul>
-						</div>
-						<div class="col-md-3 footer-grid">
-							<h4>Get In Touch</h4>
-							<p>8901 Marmora Road</p>
-							<p>Glasgow, DO4 89GR.</p>
-							<p>Freephone : +1 234 567 890</p>
-							<p>Telephone : +1 234 567 890</p>
-							<p>FAX : + 1 234 567 890</p>
-							<p>E-mail : <a href="mailto:example@mail.com"> example@mail.com</a></p>
-						</div>
-						<div class="clearfix"> </div>
-					</div>
-				</div>
-			</div>
-			<!---footer--->
-			<!--copy-->
-			<div class="copy-section">
-				<div class="container">
-					<p>Copyright &copy; 2016.Company name All rights reserved.More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a></p>
-				</div>
-			</div>
-			<!--copy-->
-		<script type="application/javascript" src="./js/LoginAndRegister.js"></script>
+		<!-- bottom -->
+		<script type="application/javascript" src="./js/Bottom.js"></script>
 </body>
 </html>

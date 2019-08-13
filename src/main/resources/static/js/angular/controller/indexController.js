@@ -8,7 +8,8 @@ app.controller("indexController",function ($scope) {
         unit:"all",
         floor:"all",
         minPrice:"any",
-        maxPrice:"any"
+        maxPrice:"any",
+        pageNum:0
     };
 
     $scope.search=function () {
