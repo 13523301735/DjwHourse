@@ -5,7 +5,7 @@ app.controller("galleryvariationController",function ($scope,galleryvariationSer
         if (href.indexOf("?hourseId=") > 0) {
             var hourseId = href.substr(href.indexOf("?hourseId=") + "?hourseId=".length);
             galleryvariationServie.searchById(hourseId).success(function (resp) {
-
+                console.log(resp);
             })
         }
     }
