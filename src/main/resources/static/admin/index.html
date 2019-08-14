@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- 页面meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>后台管理系统</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport">
+    <!-- 页面meta /-->
+    <link rel="stylesheet" href="/admin/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/admin/plugins/adminLTE/css/AdminLTE.css">
+    <link rel="stylesheet" href="/admin/plugins/adminLTE/css/skins/_all-skins.min.css">
+    <link rel="stylesheet" href="/admin/css/style.css">
+    
+    <script src="/admin/plugins/jQuery/jquery-2.2.3.min.js"></script>
+    <script src="/admin/plugins/bootstrap/js/bootstrap.min.js"></script>
+  
+    <script src="/admin/plugins/adminLTE/js/app.min.js"></script>
+    
+
+    
+    <script type="text/javascript">
+   
+		 function SetIFrameHeight(){
+		  	  var iframeid=document.getElementById("iframe"); //iframe id
+		  	  if (document.getElementById){
+		  		iframeid.height =document.documentElement.clientHeight;			   	   
+			  }
+		 }
+    
+	</script>    
+
+</head>
+
+<body class="hold-transition skin-blue sidebar-mini">
+
+    <div class="wrapper">
+
+        <!-- 页面头部 -->
+        <header class="main-header">
+            <!-- Logo -->
+            <a href="/admin/index.html" class="logo">
+                <!-- mini logo for sidebar mini 50x50 pixels -->
+                <span class="logo-mini"><b>大经伟</b></span>
+                <!-- logo for regular state and mobile devices -->
+                <span class="logo-lg"><b>大经伟</b>房产后台</span>
+            </a>
+            <!-- Header Navbar: style can be found in header.less -->
+            <nav class="navbar navbar-static-top">
+                <!-- Sidebar toggle button-->
+                <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                    <span class="sr-only">Toggle navigation</span>
+                </a>
+
+            </nav>
+        </header>
+        <!-- 页面头部 /-->
+
+        <!-- 导航侧栏 -->
+        <aside class="main-sidebar">
+            <!-- sidebar: style can be found in sidebar.less -->
+            <section class="sidebar">
+                <!-- Sidebar user panel -->
+                <div class="user-panel">
+                    <div class="pull-left image">
+                        <img src="/admin/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                    </div>
+                    <div class="pull-left info">
+                        <p> chendahai</p>
+                        <a href="#"><i class="fa fa-circle text-success"></i> 在线</a>
+                        &nbsp;&nbsp;
+                        <a href="#"><i class="fa fa-circle text-success"></i> 注销</a>
+                    </div>
+                </div>
+                <ul class="sidebar-menu"  >
+                    <li class="header">菜单</li>
+                    <li id="admin-index"><a href="index.html"><i class="fa fa-dashboard"></i> <span>首页</span></a></li>
+
+				    <!-- 菜单 -->
+				    <li class="treeview">
+				        <a href="#">
+				            <i class="fa fa-folder"></i> 
+				            <span>账号管理</span>
+				            <span class="pull-right-container">
+				       			<i class="fa fa-angle-left pull-right"></i>
+				   		 	</span>
+				        </a>
+				        <ul class="treeview-menu">
+							<li id="admin-login">
+				                <a href="/admin/password.html" target="iframe">
+				                    <i class="fa fa-circle-o"></i> 修改密码
+				                </a>
+				            </li>
+				        </ul>                        
+				    </li>
+					<li class="treeview">
+				        <a href="#">
+				            <i class="fa fa-folder"></i> 
+				            <span>业务管理</span>
+				            <span class="pull-right-container">
+				       			<i class="fa fa-angle-left pull-right"></i>
+				   		 	</span>
+				        </a>
+				        <ul class="treeview-menu">
+				
+				            <li id="admin-login">
+				                <a href="/admin/hourse_edit.html" target="iframe">
+				                    <i class="fa fa-circle-o"></i> 新增房源
+				                </a>
+				            </li>
+							<li id="admin-login">
+				                <a href="/admin/hourse.html" target="iframe">
+				                    <i class="fa fa-circle-o"></i> 房源管理
+				                </a>
+				            </li>
+				        </ul>                        
+				    </li>
+					
+				    <!-- 菜单 /-->
+
+                </ul>
+            </section>
+            <!-- /.sidebar -->
+        </aside>
+        <!-- 导航侧栏 /-->
+
+        <!-- 内容区域 -->
+        <div class="content-wrapper">
+			<iframe width="100%" id="iframe" name="iframe"	onload="SetIFrameHeight()" 
+					frameborder="0" src="/admin/hourse.html"></iframe>
+ 
+        </div>
+        <!-- 内容区域 /-->
+
+        <!-- 底部导航 -->
+        <footer class="main-footer">
+            <div class="pull-right hidden-xs">
+                <b>Version</b> 1.0.8
+            </div>
+            <strong>Copyright &copy; 2019-2022 <a href="#">研究院研发部</a>.</strong> All rights reserved.
+        </footer>
+        <!-- 底部导航 /-->
+
+    </div>
+
+
+   
+</body>
+
+</html>

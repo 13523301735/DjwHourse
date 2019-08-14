@@ -35,7 +35,7 @@ public class Hourse {
 
     private Double price;//总价格
 
-    private Integer status;//状态  （0:未上架，1:上架）
+    private Integer status;//状态  （0:未上架，1:已上架）
 
     private Integer type;//房屋类型 （0:新房，1:毛坯，2:二手房）
 
