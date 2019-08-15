@@ -39,4 +39,16 @@ public class HourseServiceImpl implements HourseService {
         result.setPageNum(Integer.valueOf(currPage));
         return Result.success(result);
     }
+
+    @Override
+    public int add(Hourse hourse) {
+        int result = hourseMapper.insert(hourse);
+        return result;
+    }
+
+    @Override
+    public Result<Hourse> searchById(String hourseId) {
+        Hourse hourse = hourseMapper.selectByPrimaryKey(Integer.valueOf(hourseId));
+        return Result.success(hourse);
+    }
 }
