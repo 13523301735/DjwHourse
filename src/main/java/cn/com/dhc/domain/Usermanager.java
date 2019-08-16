@@ -1,13 +1,11 @@
 package cn.com.dhc.domain;
 
-public class User {
+public class Usermanager {
     private Integer id;
 
     private String username;
 
     private String password;
-
-    private Integer phonenum;
 
     public Integer getId() {
         return id;
@@ -31,13 +29,5 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password == null ? null : password.trim();
-    }
-
-    public Integer getPhonenum() {
-        return phonenum;
-    }
-
-    public void setPhonenum(Integer phonenum) {
-        this.phonenum = phonenum;
     }
 }

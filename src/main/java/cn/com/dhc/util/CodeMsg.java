@@ -11,7 +11,7 @@ public class CodeMsg {
     public static CodeMsg BIND_ERROR = new CodeMsg(500101, "参数校验异常：%s");
     //登录模块 5002XX
 
-    public static CodeMsg PASSWORD_ERROR = new CodeMsg(500215, "密码错误");
+    public static CodeMsg PASSWORD_ERROR = new CodeMsg(500215, "用户名或者密码错误。");
 
     public int getCode() {
         return code;

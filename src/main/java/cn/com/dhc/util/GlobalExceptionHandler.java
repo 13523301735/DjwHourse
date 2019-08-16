@@ -11,10 +11,11 @@ public class GlobalExceptionHandler {
     @ResponseBody
     @ExceptionHandler(value=Exception.class)
     public Result<String> exceptionHandler(HttpServletRequest request, Exception e){
-        e.printStackTrace();
         //对于自定义异常的处理
+        e.printStackTrace();
         if(e instanceof DJWRuntimeException) {
             DJWRuntimeException ex = (DJWRuntimeException)e;
+            System.out.println("ex = " + ex.getCm().getMsg());
             return Result.error(ex.getCm());
         }else {
             return Result.error(CodeMsg.SERVER_ERROR);

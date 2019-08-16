@@ -15,15 +15,16 @@ public class DJWWebMvcConfigurer extends WebMvcConfigurerAdapter {
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/").setViewName("forward:/index.html");
         registry.addViewController("/admin").setViewName("forward:/admin/index.html");
+        registry.addViewController("/admin/").setViewName("forward:/admin/index.html");
         registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
         super.addViewControllers( registry );
     }
 
-    /*@Override
+    @Override
     public void addInterceptors(InterceptorRegistry registry) {
         LoginInterceptor loginInterceptor = new LoginInterceptor();
         registry.addInterceptor(loginInterceptor)
-                .addPathPatterns("/admin/*.html","/hourse/**","/admin")
-                .excludePathPatterns("/admin/shoplogin.html","/admin/login");
-    }*/
+                .addPathPatterns("/hourse/**","/userManager/**","/admin/index.html")
+                .excludePathPatterns("/userManager/login");
+    }
 }

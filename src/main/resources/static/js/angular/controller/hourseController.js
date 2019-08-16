@@ -1,4 +1,4 @@
-app.controller("hourseController",function ($scope,hourseService,$locale){
+app.controller("hourseController",function ($scope,hourseService,adminIndexService){
 
     $scope.currPage = 0;
     $scope.village = "";
@@ -15,6 +15,8 @@ app.controller("hourseController",function ($scope,hourseService,$locale){
         hourseService.searchHourseWithVillage($scope.status,$scope.currPage,$scope.village).success(function (resp) {
             if (resp.code === 0){
                 $scope.hourseList = resp.data.hourseList;
+            }  else if (resp.indexOf("登陆") >= 0){
+                window.location.href = "/admin/shoplogin.html";
             }
         })
     };
@@ -108,9 +110,20 @@ app.controller("hourseController",function ($scope,hourseService,$locale){
         if (href.indexOf("?hourseId=") > 0) {
             var hourseId = href.substr(href.indexOf("?hourseId=") + "?hourseId=".length);
             hourseService.searchById(hourseId).success(function (resp) {
-                $scope.hourse = resp.data;
+                if (resp.code === 0){
+                    $scope.hourse = resp.data;
+                } else if (resp.indexOf("登陆") >= 0){
+                    window.location.href = "/admin/shoplogin.html";
+                }
+            })
+        } else {
+            adminIndexService.findLoginUserManager().success(function (resp) {
+                if (resp.indexOf("登陆") >= 0){
+                    window.location.href = "/admin/shoplogin.html";
+                }
             })
         }
+
     };
 
     //房源列表页面点击修改按钮跳转到房源编辑页面并且将id传递过去。
