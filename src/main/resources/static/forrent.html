@@ -243,6 +243,29 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 											</div>-->
 										</div>
 									</div>
+									<!-- 分页开始 -->
+									<div class="col-md-12" style="text-align: center" id="myPage">
+										<br/>
+										<ul class="pagination">
+											<li>
+												<button id="prevPage" style="float: left" ng-click="jumpPage(queryVo.pageNum-1)">上一页</button>
+											</li>
+											<li ng-repeat="index in pageList track by $index">
+												<a href="#" style="background-color: {{index == queryVo.pageNum ? '#00c0ef':''}}"  ng-click="jumpPage(index)">{{index}}</a>
+											</li>
+											<li >
+												<button id="nextPage" ng-click="jumpPage(queryVo.pageNum+1)">下一页</button>
+											</li>
+											<li>
+												<b style="padding-left: 20px;font-size: 18px">跳转到 </b>
+												<input type="text"  value="1"  id="toPage" /> <b style="font-size: 18px"> 页 </b>
+												<button  type="button" ng-click='toPage()'>
+													<b>GO</b>
+												</button>
+											</li>
+										</ul>
+									</div>
+									<!-- 分页结束 -->
 								</div>
 							</div>
 						</div>
@@ -371,5 +394,44 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		</div>
 		<!-- bottom -->
 		<script type="application/javascript" src="./js/Bottom.js"></script>
+
+		<!-- 分页开始 -->
+		<style>
+			ul.pagination {
+				display: inline-block;
+				padding: 0;
+				margin: 0;
+			}
+
+			ul.pagination li {display: inline;}
+
+			ul.pagination li a {
+				color: black;
+				float: left;
+				padding: 8px 16px;
+				text-decoration: none;
+				border: 1px solid blue;
+				border-radius:3px;
+			}
+
+			ul.pagination li input {
+				border: 1px solid blue;
+				border-radius:3px;
+				width: 45px;
+				height: 38px;
+				text-align: center;
+			}
+
+			ul.pagination li button {
+				color: black;
+				background-color: white;
+				padding: 8px 16px;
+				text-decoration: none;
+				border: 1px solid blue;
+				border-radius:3px;
+			}
+
+		</style>
+		<!-- 分页结束 -->
 </body>
 </html>

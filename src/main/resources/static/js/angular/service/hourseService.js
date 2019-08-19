@@ -29,4 +29,44 @@ app.service("hourseService",function ($http) {
         return $http.get("/hourse/searchById?hourseId=" + hourseId);
     };
 
+    this.deleteHourse = function (ids) {
+        var formData = new FormData();
+        formData.append("hourseIds",angular.toJson(ids));
+        return $http.post("/hourse/delete",
+            formData,
+            {
+                transformRequest: angular.identity, //使用angular传参认证
+                headers: {
+                    'Content-Type': undefined //设置请求头
+                }
+            });
+    };
+
+    this.putaway = function (ids) {
+        var formData = new FormData();
+        formData.append("hourseIds",angular.toJson(ids));
+        return $http.post("/hourse/putaway",
+            formData,
+            {
+                transformRequest: angular.identity, //使用angular传参认证
+                headers: {
+                    'Content-Type': undefined //设置请求头
+                }
+            });
+    };
+
+    this.soldOut = function (ids) {
+        var formData = new FormData();
+        formData.append("hourseIds",angular.toJson(ids));
+        return $http.post("/hourse/soldOut",
+            formData,
+            {
+                transformRequest: angular.identity, //使用angular传参认证
+                headers: {
+                    'Content-Type': undefined //设置请求头
+                }
+            });
+    };
+
+
 });

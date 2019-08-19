@@ -75,7 +75,7 @@ public class ForrentServiceImpl implements ForrentService {
         criteria.andStatusEqualTo(1);
         SearchResult result = new SearchResult();
         //分页查询
-        List<Hourse> list = hourseMapper.selectByExampleWithLimit(example,searchEntity.getPageNum()*pageSize,pageSize);
+        List<Hourse> list = hourseMapper.selectByExampleWithLimit(example,(searchEntity.getPageNum() - 1)*pageSize,pageSize);
         result.setPageNum(searchEntity.getPageNum());
         result.setHourseList(list);
         //查询总条数

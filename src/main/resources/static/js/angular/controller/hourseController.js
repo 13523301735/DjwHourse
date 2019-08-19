@@ -9,6 +9,8 @@ app.controller("hourseController",function ($scope,hourseService,adminIndexServi
     $scope.hourse = {
         hourseid:""
     };
+    $scope.statusArr = ["未上架","已上架"];
+    $scope.selectIds = [];
 
 
     $scope.searchHourseWithVillage = function () {
@@ -81,6 +83,11 @@ app.controller("hourseController",function ($scope,hourseService,adminIndexServi
     $scope.savaOrUpdateHourse = function () {
         if ($scope.hourse.hourseid == ""){
             //save
+            if ($scope.hoursePicList.length != 4){
+                alert("请上传4张图片");
+                return
+            }
+            $scope.hourse.picture = $scope.hoursePicList.join(",");
             hourseService.savaHourse($scope.hourse).success(function (resp) {
                 if (resp.code === 0){
                     location.href = "/admin/hourse.html";
@@ -112,23 +119,123 @@ app.controller("hourseController",function ($scope,hourseService,adminIndexServi
             hourseService.searchById(hourseId).success(function (resp) {
                 if (resp.code === 0){
                     $scope.hourse = resp.data;
+                    $scope.hoursePicList = $scope.hourse.picture.split(",");
+                    $scope.hourse.type = $scope.hourse.type + "";
+                    $scope.hourse.form = $scope.hourse.form + "";
                 } else if (resp.indexOf("登陆") >= 0){
                     window.location.href = "/admin/shoplogin.html";
                 }
             })
         } else {
             adminIndexService.findLoginUserManager().success(function (resp) {
-                if (resp.indexOf("登陆") >= 0){
-                    window.location.href = "/admin/shoplogin.html";
+                if (resp.code != 0){
+                    if (resp.indexOf("登陆") >= 0){
+                        window.location.href = "/admin/shoplogin.html";
+                    }
                 }
             })
         }
-
     };
 
     //房源列表页面点击修改按钮跳转到房源编辑页面并且将id传递过去。
     $scope.update = function (hourseId) {
         window.location.href = "/admin/hourse_edit.html?hourseId=" + hourseId;
-    }
+    };
+
+    //勾选或取消每条房源前面的复选框更新选中房源的id数组。
+    $scope.updateSelection = function ($event, id) {
+        var checkbox = $event.target;
+        var action = (checkbox.checked ? 'add' : 'remove');
+        updateSelected(action, id);
+        updateSelall();
+
+    };
+    //根据复选框的状态判断数组的操作。
+    var updateSelected = function (action, id) {
+        if (action == 'add' && $scope.selectIds.indexOf(id) == -1) {
+            $scope.selectIds.push(id);
+        }
+        if (action == 'remove' && $scope.selectIds.indexOf(id) != -1) {
+            var idx = $scope.selectIds.indexOf(id);
+            $scope.selectIds.splice(idx, 1);
+        }
+    };
+    //每次勾选下面的复选框时判断全选复选框的状态。
+    var updateSelall = function () {
+        var checkboxs = document.getElementsByName("selevery");
+        var checked = true;
+        for (var i = 0; i < checkboxs.length; i++) {
+            if (!checkboxs[i].checked) {
+                checked = false;
+            }
+        }
+        if (checked) {
+            $("#selall").prop("checked", true);
+        } else {
+            $("#selall").prop("checked", false);
+        }
+    };
+
+    //复选框的全选。
+    $scope.changeAll=function($event){
+        if($event.target.checked){
+            //如果是被选中,则增加全部id到数组
+            $scope.selectIds=[];
+            angular.forEach($scope.hourseList, function (entity) {
+                $scope.selectIds.push(entity.hourseid);
+            });
+            $("input:checkbox").prop("checked", true);
+        }else{
+            $scope.selectIds=[];
+            $("input:checkbox").prop("checked", false);
+        }
+    };
+
+    //删除所选的房源。
+    $scope.deleteHourse = function () {
+        if ($scope.selectIds.length === 0){
+            alert("请先选择要删除的房源。");
+            return
+        }
+        if (confirm("确定要删除所选房源吗？")){
+            hourseService.deleteHourse($scope.selectIds).success(function (resp) {
+                if (resp.code === 0){
+                    window.location.reload();
+                } else {
+                    alert(resp.msg);
+                }
+            })
+        }
+    };
+
+    //上架所选的房源
+    $scope.putaway = function () {
+        if ($scope.selectIds.length === 0){
+            alert("请先选择要上架的房源。");
+            return
+        }
+        hourseService.putaway($scope.selectIds).success(function (resp) {
+            if (resp.code === 0){
+                window.location.reload();
+            } else {
+                alert(resp.msg);
+            }
+        })
+    };
+
+    //下架所选的房源
+    $scope.soldOut = function () {
+        if ($scope.selectIds.length === 0){
+            alert("请先选择要下架的房源。");
+            return
+        }
+        hourseService.soldOut($scope.selectIds).success(function (resp) {
+            if (resp.code === 0){
+                window.location.reload();
+            } else {
+                alert(resp.msg);
+            }
+        })
+    };
 
 });

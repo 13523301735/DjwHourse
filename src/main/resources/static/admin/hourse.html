@@ -25,7 +25,6 @@
 
 <body class="hold-transition skin-red sidebar-mini" ng-app="myApp" ng-controller="hourseController" ng-init="searchHourseWithVillage()">
   <!-- .box-body -->
-                
                     <div class="box-header with-border">
                         <h3 class="box-title">房源管理</h3>
                     </div>
@@ -40,9 +39,9 @@
                                 <div class="form-group form-inline">
                                     <div class="btn-group">
                                         <button type="button" class="btn btn-default" title="新增" onclick="window.location.href='/admin/hourse_edit.html'"><i class="fa fa-file-o"></i> 新增</button>
-                                        <button type="button" class="btn btn-default" title="删除" onclick='confirm("您确认要删除吗？")'><i class="fa fa-trash-o"></i> 删除</button>
-                                        <button type="button" class="btn btn-default" title="上架" ><i class="fa fa-check"></i> 上架</button>
-                                        <button type="button" class="btn btn-default" title="下架" ><i class="fa fa-ban"></i> 下架</button>
+                                        <button type="button" class="btn btn-default" title="删除" ng-click="deleteHourse()"><i class="fa fa-trash-o"></i> 删除</button>
+                                        <button type="button" class="btn btn-default" title="上架" ng-click="putaway()"><i class="fa fa-check"></i> 上架</button>
+                                        <button type="button" class="btn btn-default" title="下架" ng-click="soldOut()"><i class="fa fa-ban"></i> 下架</button>
                                         <button type="button" class="btn btn-default" title="刷新" onclick="window.location.reload();"><i class="fa fa-refresh"></i> 刷新</button>
                                     </div>
                                 </div>
@@ -65,7 +64,7 @@
 			                      <thead>
 			                          <tr>
 			                              <th class="" style="padding-right:0px">
-			                                  <input id="selall" type="checkbox" class="icheckbox_square-blue">
+			                                  <input id="selall" type="checkbox" class="icheckbox_square-blue" ng-click="changeAll($event)">
 			                              </th> 
 										  <th class="sorting_asc">房屋ID</th>
 									      <th class="sorting">小区名称</th>
@@ -79,25 +78,25 @@
 			                          </tr>
 			                      </thead>
 			                      <tbody>
-			                          <tr ng-repeat="hourse in hourseList">
-			                              <td><input  type="checkbox"></td>			                              
-				                          <td>{{hourse.hourseid}}</td>
-									      <td>{{hourse.village}}</td>
-									      <td>{{hourse.unit}}</td>
-									      <td>{{hourse.oneplace}}</td>
-									      <td>{{hourse.twoplace}}</td>
-									      <td>{{hourse.area}} ㎡</td>
-									      <td>{{hourse.price}}元</td>
+			                          <tr ng-repeat="entity in hourseList">
+			                              <td><input name="selevery" type="checkbox" ng-click="updateSelection($event,entity.hourseid)"></td>
+				                          <td>{{entity.hourseid}}</td>
+									      <td>{{entity.village}}</td>
+									      <td>{{entity.unit}}</td>
+									      <td>{{entity.oneplace}}</td>
+									      <td>{{entity.twoplace}}</td>
+									      <td>{{entity.area}} ㎡</td>
+									      <td>{{entity.price}}元</td>
 		                                  <td>
-		                                  	<span ng-hide="{{hourse.status}} === 1">
-		                                  		未上架
+		                                  	<span>
+		                                  		{{statusArr[entity.status]}}
 		                                  	</span>
-		                                  	<span ng-hide="{{hourse.status}} === 0">
+		                                  	<!--<span>
 		                                  		已上架
-		                                  	</span>
+		                                  	</span>-->
 		                                  </td>		                                  
 		                                  <td class="text-center">                                          
-		                                 	  <button type="button" class="btn bg-olive btn-xs" ng-click="update(hourse.hourseid)">修改</button>
+		                                 	  <button type="button" class="btn bg-olive btn-xs" ng-click="update(entity.hourseid)">修改</button>
 		                                  </td>
 			                          </tr>
 			                      </tbody>

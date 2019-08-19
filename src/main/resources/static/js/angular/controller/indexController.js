@@ -9,7 +9,7 @@ app.controller("indexController",function ($scope) {
         floor:"all",
         minPrice:"any",
         maxPrice:"any",
-        pageNum:0
+        pageNum:1
     };
 
     $scope.search=function () {

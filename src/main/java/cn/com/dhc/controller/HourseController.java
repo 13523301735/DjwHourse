@@ -5,6 +5,7 @@ import cn.com.dhc.domain.SearchResult;
 import cn.com.dhc.service.HourseService;
 import cn.com.dhc.util.CodeMsg;
 import cn.com.dhc.util.Result;
+import com.alibaba.fastjson.JSONArray;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +14,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.UUID;
 
 @Controller
@@ -72,6 +74,33 @@ public class HourseController {
     public Result<Hourse> searchById(String hourseId){
         Result<Hourse> result = hourseService.searchById(hourseId);
         return result;
+    }
+
+    @RequestMapping(value = "/delete",method = RequestMethod.POST)
+    @ResponseBody
+    public Result<String> delete(String hourseIds){
+        JSONArray jsonArray = JSONArray.parseArray(hourseIds);
+        List<Integer> ids = jsonArray.toJavaList(Integer.class);
+        String delete = hourseService.delete(ids);
+        return Result.success(delete);
+    }
+
+    @RequestMapping(value = "/putaway",method = RequestMethod.POST)
+    @ResponseBody
+    public Result<String> putaway(String hourseIds){
+        JSONArray jsonArray = JSONArray.parseArray(hourseIds);
+        List<Integer> ids = jsonArray.toJavaList(Integer.class);
+        String putaway = hourseService.putaway(ids);
+        return Result.success(putaway);
+    }
+
+    @RequestMapping(value = "/soldOut",method = RequestMethod.POST)
+    @ResponseBody
+    public Result<String> soldOut(String hourseIds){
+        JSONArray jsonArray = JSONArray.parseArray(hourseIds);
+        List<Integer> ids = jsonArray.toJavaList(Integer.class);
+        String soldOut = hourseService.soldOut(ids);
+        return Result.success(soldOut);
     }
 
 }
