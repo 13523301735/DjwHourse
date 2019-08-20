@@ -24,14 +24,28 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- FlexSlider -->
 	<script src="js/jquery.flexslider.js"></script>
 	<link rel="stylesheet" href="css/flexslider.css" type="text/css" media="screen" />
-	<script>
-	// Can also be used with $(document).ready()
-		$(window).load(function() {
-			$('.flexslider').flexslider({
-				animation: "slide",
-				controlNav: "thumbnails"
-			});
-		});
+	<script type="text/javascript">
+        $(function() {
+            $('#carousel').flexslider({
+                animation: "slide",
+                controlNav: false,
+                animationLoop: false,
+                slideshow: false,
+                itemWidth: 260,
+                itemMargin: 3,
+                minItems:4,
+                asNavFor: '#slider'
+            });
+
+            $('#slider').flexslider({
+                animation: "fade",  //"fade" or "slide"图片变换方式：淡入淡出或者滑动
+                controlNav: false,
+                slideshowSpeed:5000,
+                // animationLoop: false, //是否循环滚动 循环播放
+                slideshow: true,  //载入页面时，是否自动播放
+                sync: "#carousel"
+            });
+        });
 	</script>
 <!-- //FlexSlider-->
 
@@ -138,20 +152,21 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<div class="container">
 				<div class="properties-grids">
 					<div class="col-md-12 properties-left">
-						<div class="flexslider" id="pictures">
+						<div id="slider" class="col-md-10 flexslider" style="text-align: center;height: 430px" >
 							<ul class="slides">
-								<li id="picture0" data-thumb="/{{hourse.picture[0]}}">
-									<div class="thumb-image"> <img id="pic1" ng-src="/{{hourse.picture[0]}}" data-imagezoom="true" class="img-responsive"> </div>
-								</li>
-								<li id="picture1" data-thumb="/{{hourse.picture[1]}}">
-									<div class="thumb-image"> <img id="pic2" ng-src="/{{hourse.picture[1]}}" data-imagezoom="true" class="img-responsive"> </div>
-								</li>
-								<li id="picture2" data-thumb="/{{hourse.picture[2]}}">
-									<div class="thumb-image"> <img id="pic3" ng-src="/{{hourse.picture[2]}}" data-imagezoom="true" class="img-responsive"> </div>
-								</li>
-								<li id="picture3" data-thumb="/{{hourse.picture[3]}}">
-									<div class="thumb-image"> <img id="pic4" ng-src="/{{hourse.picture[3]}}" data-imagezoom="true" class="img-responsive"> </div>
-								</li>
+								<li><img ng-src="{{hourse.picture[0]}}" style="height: 415px"/></li>
+								<li><img ng-src="{{hourse.picture[1]}}" style="height: 415px"/></li>
+								<li><img ng-src="{{hourse.picture[2]}}" style="height: 415px"/></li>
+								<li><img ng-src="{{hourse.picture[3]}}" style="height: 415px"/></li>
+							</ul>
+						</div>
+
+						<div id="carousel" class="col-md-2 flexslider carousel" style="text-align: center">
+							<ul class="slides">
+								<li ><img ng-src="{{hourse.picture[0]}}" style="margin-left:5px;margin-bottom:5px;width: 200px;height:100px;"/></li>
+								<li ><img ng-src="{{hourse.picture[1]}}" style="margin-left:5px;margin-bottom:5px;width: 200px;height:100px;"/></li>
+								<li ><img ng-src="{{hourse.picture[2]}}" style="margin-left:5px;margin-bottom:5px;width: 200px;height:100px;"/></li>
+								<li ><img ng-src="{{hourse.picture[3]}}" style="margin-left:5px;width: 200px;height:100px;"/></li>
 							</ul>
 						</div>
 						<div class="clearfix"></div>

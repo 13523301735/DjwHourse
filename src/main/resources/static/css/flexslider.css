@@ -84,16 +84,17 @@ html[xmlns] .flexslider .slides {
   height: auto;
 }
 .flex-viewport {
-max-height: 450px;
+    max-height: 450px;
     -webkit-transition: all 1s ease;
     -moz-transition: all 1s ease;
     -ms-transition: all 1s ease;
     -o-transition: all 1s ease;
     transition: all 1s ease;
     border:none;
-    float: left;
-    width: 80%;
-    margin-right: 0px;
+    /*float: left;*/
+    width: 100%;
+    text-align: center;
+    /*margin-right: 0px;*/
 
 }
 
