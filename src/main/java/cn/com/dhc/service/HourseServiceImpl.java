@@ -36,7 +36,7 @@ public class HourseServiceImpl implements HourseService {
         if (status != null && !status.trim().equals("")){
             criteria.andStatusEqualTo(Integer.valueOf(status));
         }
-        List<Hourse> hourseList = hourseMapper.selectByExampleWithLimit(example, Integer.valueOf(currPage)*adminPageSize, adminPageSize);
+        List<Hourse> hourseList = hourseMapper.selectByExampleWithLimit(example, (Integer.valueOf(currPage)-1)*adminPageSize, adminPageSize);
         int count = hourseMapper.countByExample(example);
         SearchResult result = new SearchResult();
         result.setTotalCount(count);

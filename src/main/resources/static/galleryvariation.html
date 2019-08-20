@@ -15,10 +15,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!---js--->
 <script src="js/jquery-1.11.1.min.js"></script>
 <script src="js/bootstrap-3.3.4.js"></script>
-<script src="js/angular/angular-1.5.8.min.js"></script>
-<script src="js/angular/myApp.js"></script>
-<script src="js/angular/service/galleryvariationService.js"></script>
-<script src="js/angular/controller/galleryvariationController.js"></script>
 <!---js--->
 <!---fonts-->
 <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
@@ -26,18 +22,24 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <link href='https://fonts.googleapis.com/css?family=Righteous' rel='stylesheet' type='text/css'>
 <!---fonts-->
 <!-- FlexSlider -->
-	 <script src="js/jquery.flexslider.js"></script>
-		<link rel="stylesheet" href="css/flexslider.css" type="text/css" media="screen" />
-			<script>
-			// Can also be used with $(document).ready()
-				$(window).load(function() {
-				$('.flexslider').flexslider({
+	<script src="js/jquery.flexslider.js"></script>
+	<link rel="stylesheet" href="css/flexslider.css" type="text/css" media="screen" />
+	<script>
+	// Can also be used with $(document).ready()
+		$(window).load(function() {
+			$('.flexslider').flexslider({
 				animation: "slide",
 				controlNav: "thumbnails"
-				});
-				});
-			</script>
-			<!-- //FlexSlider-->
+			});
+		});
+	</script>
+<!-- //FlexSlider-->
+
+	<script src="js/angular/angular-1.5.8.min.js"></script>
+	<script src="js/angular/myApp.js"></script>
+	<script src="js/angular/service/galleryvariationService.js"></script>
+	<script src="js/angular/controller/galleryvariationController.js"></script>
+
 </head>
 <body ng-app="myApp" ng-controller="galleryvariationController" ng-init="searchById()">
 
@@ -136,19 +138,19 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<div class="container">
 				<div class="properties-grids">
 					<div class="col-md-12 properties-left">
-						<div class="flexslider">
+						<div class="flexslider" id="pictures">
 							<ul class="slides">
-								<li data-thumb="images/d1.jpg">
-									<div class="thumb-image"> <img src="images/d1.jpg" data-imagezoom="true" class="img-responsive"> </div>
+								<li id="picture0" data-thumb="/{{hourse.picture[0]}}">
+									<div class="thumb-image"> <img id="pic1" ng-src="/{{hourse.picture[0]}}" data-imagezoom="true" class="img-responsive"> </div>
 								</li>
-								<li data-thumb="images/d2.jpg">
-									 <div class="thumb-image"> <img src="images/d2.jpg" data-imagezoom="true" class="img-responsive"> </div>
+								<li id="picture1" data-thumb="/{{hourse.picture[1]}}">
+									<div class="thumb-image"> <img id="pic2" ng-src="/{{hourse.picture[1]}}" data-imagezoom="true" class="img-responsive"> </div>
 								</li>
-								<li data-thumb="images/d3.jpg">
-										<div class="thumb-image"> <img src="images/d3.jpg" data-imagezoom="true" class="img-responsive"> </div>
+								<li id="picture2" data-thumb="/{{hourse.picture[2]}}">
+									<div class="thumb-image"> <img id="pic3" ng-src="/{{hourse.picture[2]}}" data-imagezoom="true" class="img-responsive"> </div>
 								</li>
-								<li data-thumb="images/d4.jpg">
-									   <div class="thumb-image"> <img src="images/d4.jpg" data-imagezoom="true" class="img-responsive"> </div>
+								<li id="picture3" data-thumb="/{{hourse.picture[3]}}">
+									<div class="thumb-image"> <img id="pic4" ng-src="/{{hourse.picture[3]}}" data-imagezoom="true" class="img-responsive"> </div>
 								</li>
 							</ul>
 						</div>

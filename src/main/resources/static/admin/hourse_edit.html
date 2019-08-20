@@ -148,7 +148,7 @@
 					                    <tbody>
 					                      <tr ng-repeat="picture in hoursePicList">
 									            <td style="text-align: center">
-									           		<img alt="" src="/{{picture}}" width="200px" height="100px">
+									           		<img alt="" ng-src="/{{picture}}" width="200px" height="100px">
 									            </td>
 											  	<td style="text-align: center">
 													<button type="button" class="btn btn-default" title="删除" ng-click="deletePicture(picture)">

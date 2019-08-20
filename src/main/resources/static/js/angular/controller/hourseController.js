@@ -1,6 +1,6 @@
 app.controller("hourseController",function ($scope,hourseService,adminIndexService){
 
-    $scope.currPage = 0;
+    $scope.currPage = 1;
     $scope.village = "";
     $scope.status = "";
     $scope.hourseList = [];
@@ -9,14 +9,27 @@ app.controller("hourseController",function ($scope,hourseService,adminIndexServi
     $scope.hourse = {
         hourseid:""
     };
-    $scope.statusArr = ["未上架","已上架"];
     $scope.selectIds = [];
+    $scope.totalCount = 0;
+    $scope.pageList = [];
+    $scope.waitForDelete = [];
 
 
     $scope.searchHourseWithVillage = function () {
         hourseService.searchHourseWithVillage($scope.status,$scope.currPage,$scope.village).success(function (resp) {
             if (resp.code === 0){
-                $scope.hourseList = resp.data.hourseList;
+                //如果删除掉了最后一页的所有数据，则展示上一页的数据。
+                if (resp.data.pageNum > 1 && resp.data.hourseList.length === 0){
+                    $scope.currPage = resp.data.pageNum-1;
+                    $scope.searchHourseWithVillage();
+                } else {
+                    $scope.hourseList = resp.data.hourseList;
+                    $scope.totalCount = resp.data.totalCount;
+                    draw(resp.data.pageNum,Math.ceil(resp.data.totalCount/10));
+                }
+                //每次重新加载列表后清空复选框的勾选状态和保存id的数组。
+                $("#selall").prop("checked", false);
+                $scope.selectIds = [];
             }  else if (resp.indexOf("登陆") >= 0){
                 window.location.href = "/admin/shoplogin.html";
             }
@@ -27,6 +40,10 @@ app.controller("hourseController",function ($scope,hourseService,adminIndexServi
     $scope.uploadFile = function () {
         if (document.getElementById("file").value == ""){
             return
+        }
+        if ($scope.hoursePicList.length >= 4){
+            alert("最多上传4张图片。");
+            return;
         }
         hourseService.uploadFile().success(function (resp) {
             if (resp.code === 0){
@@ -39,18 +56,6 @@ app.controller("hourseController",function ($scope,hourseService,adminIndexServi
     $scope.savaPicture = function () {
         if (!$scope.imageSrc == ""){
             $scope.hoursePicList.push($scope.imageSrc);
-            picListToString();
-        }
-    };
-
-    picListToString = function () {
-        $scope.hourse.pictures = "";
-        for (var i = 0; i < $scope.hoursePicList.length; i++) {
-            if (i == ($scope.hoursePicList.length - 1)){
-                $scope.hourse.pictures += $scope.hoursePicList[i];
-            } else {
-                $scope.hourse.pictures += $scope.hoursePicList[i] + ",";
-            }
         }
     };
 
@@ -66,27 +71,42 @@ app.controller("hourseController",function ($scope,hourseService,adminIndexServi
         if (picName === "") {
             return;
         }
-        var index = -1;
-        for (var i = 0; i < $scope.hoursePicList.length; i++) {
-            if ($scope.hoursePicList[i] === picName){
-                index = i;
+        if ($scope.hourse.hourseid == ""){
+            //新增房源的时候点击删除直接从磁盘上删除。
+            var index = -1;
+            for (var i = 0; i < $scope.hoursePicList.length; i++) {
+                if ($scope.hoursePicList[i] === picName){
+                    index = i;
+                }
+            }
+            if (index > -1){
+                $scope.hoursePicList.splice(index,1);
+            }
+            hourseService.deletePicture(picName);
+        } else {
+            //修改房源的时候点击删除先将要删除的图片保存在删除列表中，并从页面上删掉，在保存的时候再进行磁盘上删除删除。
+            $scope.waitForDelete.push(picName);
+            var index = -1;
+            for (var i = 0; i < $scope.hoursePicList.length; i++) {
+                if ($scope.hoursePicList[i] === picName){
+                    index = i;
+                }
+            }
+            if (index > -1){
+                $scope.hoursePicList.splice(index,1);
             }
         }
-        if (index > -1){
-            $scope.hoursePicList.splice(index,1);
-        }
-        picListToString();
-        hourseService.deletePicture(picName);
+
     };
 
     //保存房源信息到数据库。
     $scope.savaOrUpdateHourse = function () {
+        if ($scope.hoursePicList.length != 4){
+            alert("请上传4张图片");
+            return
+        }
         if ($scope.hourse.hourseid == ""){
             //save
-            if ($scope.hoursePicList.length != 4){
-                alert("请上传4张图片");
-                return
-            }
             $scope.hourse.picture = $scope.hoursePicList.join(",");
             hourseService.savaHourse($scope.hourse).success(function (resp) {
                 if (resp.code === 0){
@@ -150,6 +170,7 @@ app.controller("hourseController",function ($scope,hourseService,adminIndexServi
         updateSelall();
 
     };
+
     //根据复选框的状态判断数组的操作。
     var updateSelected = function (action, id) {
         if (action == 'add' && $scope.selectIds.indexOf(id) == -1) {
@@ -160,6 +181,7 @@ app.controller("hourseController",function ($scope,hourseService,adminIndexServi
             $scope.selectIds.splice(idx, 1);
         }
     };
+
     //每次勾选下面的复选框时判断全选复选框的状态。
     var updateSelall = function () {
         var checkboxs = document.getElementsByName("selevery");
@@ -200,7 +222,8 @@ app.controller("hourseController",function ($scope,hourseService,adminIndexServi
         if (confirm("确定要删除所选房源吗？")){
             hourseService.deleteHourse($scope.selectIds).success(function (resp) {
                 if (resp.code === 0){
-                    window.location.reload();
+                    alert("删除成功。");
+                    $scope.searchHourseWithVillage();
                 } else {
                     alert(resp.msg);
                 }
@@ -216,7 +239,8 @@ app.controller("hourseController",function ($scope,hourseService,adminIndexServi
         }
         hourseService.putaway($scope.selectIds).success(function (resp) {
             if (resp.code === 0){
-                window.location.reload();
+                alert("上架成功。");
+                $scope.searchHourseWithVillage();
             } else {
                 alert(resp.msg);
             }
@@ -231,11 +255,85 @@ app.controller("hourseController",function ($scope,hourseService,adminIndexServi
         }
         hourseService.soldOut($scope.selectIds).success(function (resp) {
             if (resp.code === 0){
-                window.location.reload();
+                alert("下架成功。");
+                $scope.searchHourseWithVillage();
             } else {
                 alert(resp.msg);
             }
         })
     };
+
+
+    //点击分页栏的页码就行跳转。
+    $scope.jumpPage = function (pageNum) {
+        if(!isNaN(pageNum)){
+            if (pageNum >= 1 && pageNum <= Math.ceil($scope.totalCount/10)) {
+                $scope.currPage = pageNum;
+                $scope.searchHourseWithVillage();
+            }
+        }
+    };
+
+    //输入页码跳转到指定分页。
+    $scope.toPage = function () {
+        var num = $("#toPage").val();
+        if (isNaN(num)) {
+            alert("请输入有效的页码。");
+        } else if (num < 1 || num > Math.ceil($scope.totalCount/10)) {
+            alert("请输入有效的页码。")
+        } else {
+            $scope.jumpPage(parseInt(num));
+        }
+    };
+
+    //绘制分页栏,连续显示5个页码。
+    //分页的4种情况，假设有9页，分页栏连续显示5个页码。
+    //  6页以下的:
+    //          1 2 3 4 5 6     totalPage <= 6
+    //  6页以上的：
+    //          1 2 3 4 5... 9  currPage <= 4
+    //          1 ... 3 4 5 6 7 ... 9   剩下的都是这种样式。
+    //          1 ... 6 7 8 9   (totalPage-currPage) <= 3
+    var draw = function (currPage, totalPage) {
+        if (currPage == 1){
+            $("#prevPage").css("background-color","#b8c7ce");
+        } else {
+            $("#prevPage").css("background-color","white");
+        }
+        if (totalPage == currPage){
+            $("#nextPage").css("background-color","#b8c7ce");
+        } else {
+            $("#nextPage").css("background-color","white");
+        }
+        //定义一个数组用来保存分页栏需要展示的元素，保存在集合中使用时在前台html页面循环遍历展示即可。
+        $scope.pageList = [];
+        if (totalPage <= 6){
+            for (var i = 1; i <= totalPage; i++) {
+                $scope.pageList.push(i);
+            }
+        } else {
+            if ((totalPage-currPage) <= 3){
+                $scope.pageList.push(1);
+                $scope.pageList.push("...");
+                for (var i = totalPage - 4; i <= totalPage ; i++) {
+                    $scope.pageList.push(i);
+                }
+            } else if (currPage <= 4){
+                for (var i = 1; i <= 5; i++) {
+                    $scope.pageList.push(i);
+                }
+                $scope.pageList.push("...");
+                $scope.pageList.push(totalPage);
+            } else {
+                $scope.pageList.push(1);
+                $scope.pageList.push("...");
+                for (var i = currPage - 2; i <= currPage + 2 ; i++) {
+                    $scope.pageList.push(i);
+                }
+                $scope.pageList.push("...");
+                $scope.pageList.push(totalPage);
+            }
+        }
+    }
 
 });

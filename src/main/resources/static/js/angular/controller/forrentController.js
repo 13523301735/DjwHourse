@@ -93,7 +93,7 @@ app.controller("forrentController",function ($scope,$location,forrentService){
     //          1 2 3 4 5... 9  currPage <= 4
     //          1 ... 3 4 5 6 7 ... 9   剩下的都是这种样式。
     //          1 ... 6 7 8 9   (totalPage-currPage) <= 3
-    draw = function (currPage, totalPage) {
+    var draw = function (currPage, totalPage) {
         if (currPage == 1){
             $("#prevPage").css("background-color","#b8c7ce");
         } else {

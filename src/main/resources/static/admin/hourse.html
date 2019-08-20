@@ -25,91 +25,160 @@
 
 <body class="hold-transition skin-red sidebar-mini" ng-app="myApp" ng-controller="hourseController" ng-init="searchHourseWithVillage()">
   <!-- .box-body -->
-                    <div class="box-header with-border">
-                        <h3 class="box-title">房源管理</h3>
-                    </div>
+	<div class="box-header with-border">
+		<h3 class="box-title">房源管理</h3>
+	</div>
 
-                    <div class="box-body">
+	<div class="box-body">
 
-                        <!-- 数据表格 -->
-                        <div class="table-box">
+		<!-- 数据表格 -->
+		<div class="table-box">
 
-                            <!--工具栏-->
-                            <div class="pull-left">
-                                <div class="form-group form-inline">
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-default" title="新增" onclick="window.location.href='/admin/hourse_edit.html'"><i class="fa fa-file-o"></i> 新增</button>
-                                        <button type="button" class="btn btn-default" title="删除" ng-click="deleteHourse()"><i class="fa fa-trash-o"></i> 删除</button>
-                                        <button type="button" class="btn btn-default" title="上架" ng-click="putaway()"><i class="fa fa-check"></i> 上架</button>
-                                        <button type="button" class="btn btn-default" title="下架" ng-click="soldOut()"><i class="fa fa-ban"></i> 下架</button>
-                                        <button type="button" class="btn btn-default" title="刷新" onclick="window.location.reload();"><i class="fa fa-refresh"></i> 刷新</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="box-tools pull-right">
-                                <div class="has-feedback">
-                                  状态：<select ng-model="status">
-                                         	<option value="">全部</option>      
-                                         	<option value="0">未上架</option>
-                                         	<option value="1">已上架</option>
-                                        </select>
-							                  小区名称：<input ng-model="village">
-									<button class="btn btn-default" ng-click="searchHourseWithVillage()">查询</button>
-                                </div>
-                            </div>
-                            <!--工具栏/-->
+			<!--工具栏-->
+			<div class="pull-left">
+				<div class="form-group form-inline">
+					<div class="btn-group">
+						<button type="button" class="btn btn-default" title="新增" onclick="window.location.href='/admin/hourse_edit.html'"><i class="fa fa-file-o"></i> 新增</button>
+						<button type="button" class="btn btn-default" title="删除" ng-click="deleteHourse()"><i class="fa fa-trash-o"></i> 删除</button>
+						<button type="button" class="btn btn-default" title="上架" ng-click="putaway()"><i class="fa fa-check"></i> 上架</button>
+						<button type="button" class="btn btn-default" title="下架" ng-click="soldOut()"><i class="fa fa-ban"></i> 下架</button>
+						<button type="button" class="btn btn-default" title="刷新" onclick="window.location.reload();"><i class="fa fa-refresh"></i> 刷新</button>
+					</div>
+				</div>
+			</div>
+			<div class="box-tools pull-right">
+				<div class="has-feedback">
+				  状态：<select ng-model="status">
+							<option value="">全部</option>
+							<option value="0">未上架</option>
+							<option value="1">已上架</option>
+						</select>
+							  小区名称：<input ng-model="village">
+					<button class="btn btn-default" ng-click="searchHourseWithVillage()">查询</button>
+				</div>
+			</div>
+			<!--工具栏/-->
 
-			                  <!--数据列表-->
-			                  <table id="dataList" class="table table-bordered table-striped table-hover dataTable">
-			                      <thead>
-			                          <tr>
-			                              <th class="" style="padding-right:0px">
-			                                  <input id="selall" type="checkbox" class="icheckbox_square-blue" ng-click="changeAll($event)">
-			                              </th> 
-										  <th class="sorting_asc">房屋ID</th>
-									      <th class="sorting">小区名称</th>
-									      <th class="sorting">户型</th>
-									      <th class="sorting">一级区域</th>
-									      <th class="sorting">二级区域</th>
-									      <th class="sorting">面积</th>
-									      <th class="sorting">价格</th>
-									      <th class="sorting">状态</th>
-					                      <th class="text-center">操作</th>
-			                          </tr>
-			                      </thead>
-			                      <tbody>
-			                          <tr ng-repeat="entity in hourseList">
-			                              <td><input name="selevery" type="checkbox" ng-click="updateSelection($event,entity.hourseid)"></td>
-				                          <td>{{entity.hourseid}}</td>
-									      <td>{{entity.village}}</td>
-									      <td>{{entity.unit}}</td>
-									      <td>{{entity.oneplace}}</td>
-									      <td>{{entity.twoplace}}</td>
-									      <td>{{entity.area}} ㎡</td>
-									      <td>{{entity.price}}元</td>
-		                                  <td>
-		                                  	<span>
-		                                  		{{statusArr[entity.status]}}
-		                                  	</span>
-		                                  	<!--<span>
-		                                  		已上架
-		                                  	</span>-->
-		                                  </td>		                                  
-		                                  <td class="text-center">                                          
-		                                 	  <button type="button" class="btn bg-olive btn-xs" ng-click="update(entity.hourseid)">修改</button>
-		                                  </td>
-			                          </tr>
-			                      </tbody>
-			                  </table>
-			                  <!--数据列表/-->                        
+			  <!--数据列表-->
+			  <table id="dataList" class="table table-bordered table-striped table-hover dataTable">
+				  <thead>
+					  <tr>
+						  <th class="" style="padding-right:0px">
+							  <input id="selall" type="checkbox" class="icheckbox_square-blue" ng-click="changeAll($event)">
+						  </th>
+						  <th class="sorting_asc">房屋ID</th>
+						  <th class="sorting">小区名称</th>
+						  <th class="sorting">户型</th>
+						  <th class="sorting">一级区域</th>
+						  <th class="sorting">二级区域</th>
+						  <th class="sorting">面积</th>
+						  <th class="sorting">价格</th>
+						  <th class="sorting">类型</th>
+						  <th class="sorting">状态</th>
+						  <th class="text-center">操作</th>
+					  </tr>
+				  </thead>
+				  <tbody>
+					  <tr ng-repeat="entity in hourseList">
+						  <td><input name="selevery" type="checkbox" ng-click="updateSelection($event,entity.hourseid)"></td>
+						  <td>{{entity.hourseid}}</td>
+						  <td>{{entity.village}}</td>
+						  <td>{{entity.unit}}</td>
+						  <td>{{entity.oneplace}}</td>
+						  <td>{{entity.twoplace}}</td>
+						  <td>{{entity.area}} ㎡</td>
+						  <td>{{entity.price}}元</td>
+						  <td >
+							  <span>
+								{{entity.type == 0?'新房':entity.type == 1?'毛坯':'二手房'}}
+							  </span>
+						  </td>
+						  <td>
+							<span>
+								{{entity.status == 0?'未上架':'已上架'}}
+							</span>
+							<!--<span>
+								已上架
+							</span>-->
+						  </td>
+						  <td class="text-center">
+							  <button type="button" class="btn bg-olive btn-xs" ng-click="update(entity.hourseid)">修改</button>
+						  </td>
+					  </tr>
+				  </tbody>
 
-                        </div>
-                        <!-- 数据表格 /-->
-                        
-                        
-                     </div>
-                    <!-- /.box-body -->
+			  </table>
+			  <!--数据列表/-->
+
+			<!--分页数据-->
+			<div class="col-md-12" style="text-align: center" id="myPage">
+				<br/>
+				<ul class="pagination">
+					<li>
+						<button id="prevPage" style="float: left" ng-click="jumpPage(currPage-1)">上一页</button>
+					</li>
+					<li ng-repeat="index in pageList track by $index">
+						<a href="#" style="background-color: {{index == currPage ? '#00c0ef':''}}"  ng-click="jumpPage(index)">{{index}}</a>
+					</li>
+					<li >
+						<button id="nextPage" ng-click="jumpPage(currPage+1)">下一页</button>
+					</li>
+					<li>
+						<b style="padding-left: 20px;font-size: 18px">跳转到 </b>
+						<input type="text"  value="1"  id="toPage" /> <b style="font-size: 18px"> 页 </b>
+						<button  type="button" ng-click='toPage()'>
+							<b>GO</b>
+						</button>
+					</li>
+				</ul>
+			</div>
+
+		</div>
+		<!-- 数据表格 /-->
+
+
+	 </div>
+	<!-- /.box-body -->
 		
 </body>
+
+	<!-- 分页开始 -->
+	<style>
+		ul.pagination {
+			display: inline-block;
+			padding: 0;
+			margin: 0;
+		}
+
+		ul.pagination li {display: inline;}
+
+		ul.pagination li a {
+			color: black;
+			float: left;
+			padding: 8px 16px;
+			text-decoration: none;
+			border: 1px solid blue;
+			border-radius:3px;
+		}
+
+		ul.pagination li input {
+			border: 1px solid blue;
+			border-radius:3px;
+			width: 45px;
+			height: 38px;
+			text-align: center;
+		}
+
+		ul.pagination li button {
+			color: black;
+			background-color: white;
+			padding: 8px 16px;
+			text-decoration: none;
+			border: 1px solid blue;
+			border-radius:3px;
+		}
+
+	</style>
+	<!-- 分页结束 -->
 
 </html>
